@@ -1,34 +1,51 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form';
+
 const Login = () => {
+  const { register, handleSubmit, watch, formState: { errors, touched }, } = useForm();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+ 
+  const handleLogin = (loggedIn) => {
+    setIsLoggedIn(loggedIn);
+  };
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const onSubmit = (data) => {
+    console.log(data);
+    console.log(JSON.stringify(data));
+    // if (username === 'user' && password === 'password') {
+    //   onLogin(true);
+    // } else {
+    //   alert('Invalid credentials');
+    // }
+  };
+
+  // const login = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     await api.post('/api/auth', { username, password })
+  //     router.push('/account')
+  //   } catch (e) {
+  //     setPassword('')
+  //     console.log(e)
+  //   }
+  // }
 
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-  if (!email || !password) {
-    setError('Please enter both email and password.');
-    return;
-  }
-
-  try{
-   const response = fetch('https://dummyjson.com/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      })
-    })
-  } catch (error) {
-    console.log('111');
-  }
+  // try{
+  //  const response = fetch('https://dummyjson.com/auth/login', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({
+  //       email: email,
+  //       password: password,
+  //     })
+  //   })
+  // } catch (error) {
+  //   console.log('111');
+  // }
 
 
-  }
   return (
     <>
       <div>
@@ -51,14 +68,18 @@ const Login = () => {
                 <div className="login-form">
                   <h2>Login</h2>
 
-                  <form onSubmit={handleLogin}>
+                  {isLoggedIn ? ( <h2>Welcome! You are logged in.</h2>  ) : (  <h2>please! You are out.</h2> )}
+
+                  <form onSubmit={handleSubmit(onSubmit)} className="login-form">
                     <div className="group-input">
                       <label htmlFor="username">Username or email  *</label>
-                      <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                      <input type="text" {...register("email", {required:true})} placeholder="Your email" />
+                          {errors.email?.type === 'required' && <span className="text-danger">The email field is required</span>}
                     </div>
                     <div className="group-input">
                       <label htmlFor="pass">Password *</label>
-                      <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                      <input type="text" {...register("password", {required:true})} placeholder="Your password" />
+                          {errors.password?.type === 'required' && <span className="text-danger">The password field is required</span>}
                     </div>
 
                     <div className="group-input gi-check">

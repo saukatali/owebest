@@ -86,16 +86,16 @@ const Contact = () => {
                         <div className="col-lg-6">
                             <input type="text" {...register("username", { required: true })} placeholder="Your username" />
                             {errors.username?.type === 'required' && (
-                              <span className="text-danger">The name is required</span>
+                              <span className="text-danger">The name field is required</span>
                             )}
                         </div>
                         <div className="col-lg-6">
                           <input type="text" {...register("email", {required:true})} placeholder="Your email" />
-                          {errors.email?.type === 'required' && <span className="text-danger">The email is required</span>}
+                          {errors.email?.type === 'required' && <span className="text-danger">The email field is required</span>}
                         </div>
                         <div className="col-lg-12">
                           <textarea {...register("message", {required:true})} placeholder="Your message" />
-                          {errors.message?.type === 'required' && <span className="text-danger">The message is required</span>}
+                          {errors.message?.type === 'required' && <span className="text-danger">The message field is required</span>}
                            <br></br> <br></br>
                           <button type="submit" className="site-btn text-dark">Send message</button>
                         </div>
