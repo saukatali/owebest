@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import ProductRating from './ProductRating';
 import Loader from '../componants/Loader';
-const ProductDetail = () => {
 
+const ProductDetail = () => {
+  
   const { productId } = useParams();
   const [product, setProduct] = useState([]);
   const [product_lists, setProducts] = useState([]);

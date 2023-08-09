@@ -25,10 +25,12 @@ const User = () => {
   }, []);
 
 
-  const handleEditUser = (id) => {
-    alert(id)
-    navigate.push("/product");
+  const handleEditUser = (userId) => {
+    // navigate.push(`/user-edit/${userId}`);
+    navigate(`/user-edit/${userId}`);
   };
+
+  
 
   const handleRemoveUser = (id) => {
     const updatedUser = users.filter((user) => user.id !== id);
@@ -80,10 +82,13 @@ const User = () => {
                         <td>
                           <Link to={`/user-show/${user.id}`} className="text-primary">
                             <i className="fa fa-eye" aria-hidden="true"></i></Link>
+
                           <Link className="text-warning mx-2" onClick={() => handleEditUser(user.id)}>
                             <i className="fa fa-pencil" aria-hidden="true"></i></Link>
+
                             <span onClick={() => navigate(`/user-edit/${user.id}`)} className=" btn-warning mx-2">
                               <i className="fa fa-pencil" aria-hidden="true"></i></span>
+
                           <Link className="text-danger" onClick={() => handleRemoveUser(user.id)}>
                             <i className="fa fa-trash" aria-hidden="true"></i></Link>
                         </td>
