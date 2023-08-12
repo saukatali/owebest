@@ -1,25 +1,39 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
-import { authReducer, registerUser } from '../reducers/authReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { register, handleSubmit, watch, formState: { errors, touched }, } = useForm();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [auth, setAuth] = useState(false);
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  const handleLogin = (loggedIn) => {
+    setIsLoggedIn(loggedIn);
+  };
 
-  const onSubmitLogin = (data) => {
-    if(auth == 'signup'){
+  const onSubmit = (data) => {
+    console.log(data);
 
-    }else{
-      dispatch(registerUser({ email: data.email, password: data.password }));
+    const udata = localStorage.getItem('data');
+    const loginData = JSON.parse(udata);
+    console.log(loginData);
+
+    if (loginData.email === data.email && loginData.password === data.password) {
+      console.log('loginnnnn');
+      setTimeout(() => {
+        setIsLoggedIn(true);
+      }, 1000);
+    } else {
+      alert('Invalid credentials');
     }
+  };
+
+
+  if (isLoggedIn) {
+    navigate('/');
+    return null;
   }
-
-
 
   return (
     <>
@@ -45,7 +59,7 @@ const Login = () => {
 
                   {isLoggedIn ? ( <h2>Welcome! You are logged in.</h2>  ) : (  <h2>Please! Logged here.</h2> )}
 
-                  <form onSubmit={handleSubmit(onSubmitLogin)} className="login-form">
+                  <form onSubmit={handleSubmit(onSubmit)} className="login-form">
                     <div className="group-input">
                       <label htmlFor="username">Email  *</label>
                       <input type="text" {...register("email", {required:true})} placeholder="Your email" />

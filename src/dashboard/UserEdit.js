@@ -129,10 +129,6 @@ const UserEdit = () => {
                 </div>
                 <button type="submit" className="site-btn login-btn text-dark">Submit</button>
               </form>
-
-              <div className="switch-login">
-                <a href="./register.html" className="or-login">Or Create An Account</a>
-              </div>
             </div>
           </div>
         </div>

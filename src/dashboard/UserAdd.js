@@ -11,7 +11,7 @@ const UserAdd = () => {
       // start async function using api
       async function formSubmitHander(user) {
         console.log(user);
-        console.log(JSON.stringify(user));
+        // console.log(JSON.stringify(user));
         let formData = new FormData()
         formData.append("name", user.name);
         formData.append("email", user.email);
@@ -50,8 +50,6 @@ const UserAdd = () => {
         <div className="register-login-section spad">
           <div className="container">
             <div className="login-form">
-
-
               <form className="mws-form login-form" encType="multipart/form-data" autoComplete="off" onSubmit={handleSubmit(formSubmitHander)}  >
                 <div className="row">
                   <div className="col-lg-6">

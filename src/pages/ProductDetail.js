@@ -103,9 +103,9 @@ const ProductDetail = () => {
                 <div className="filter-widget">
                   <h4 className="fw-title">Categories</h4>
                   <ul className="filter-catagories">
-                    <li><a href="#">Men</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Kids</a></li>
+                    <li><Link to="/">Men</Link></li>
+                    <li><Link to="/">Women</Link></li>
+                    <li><Link to="/">Kids</Link></li>
                   </ul>
                 </div>
                 <div className="filter-widget">
@@ -143,7 +143,7 @@ const ProductDetail = () => {
                       <span tabIndex={0} className="ui-slider-handle ui-corner-all ui-state-default" />
                     </div>
                   </div>
-                  <a href="#" className="filter-btn">Filter</a>
+                  <Link to="/" className="filter-btn">Filter</Link>
                 </div>
                 <div className="filter-widget">
                   <h4 className="fw-title">Color</h4>
@@ -198,9 +198,9 @@ const ProductDetail = () => {
                 <div className="filter-widget">
                   <h4 className="fw-title">Tags</h4>
                   <div className="fw-tags">
-                    <a href="#">Towel</a>
-                    <a href="#">Shoes</a>
-                    <a href="#">Coat</a>
+                    <Link to="/">Towel</Link>
+                    <Link to="/">Shoes</Link>
+                    <Link to="/">Coat</Link>
                   </div>
                 </div>
               </div>
@@ -227,7 +227,7 @@ const ProductDetail = () => {
                       <div className="pd-title">
                         <span>{product.category}</span>
                         <h3>{product.title}</h3>
-                        <a href="#" className="heart-icon"><i className="icon_heart_alt" /></a>
+                        <Link to="/" className="heart-icon"><i className="icon_heart_alt" /></Link>
                       </div>
                       <div className="pd-rating">
                         <div>
@@ -288,9 +288,9 @@ const ProductDetail = () => {
                       <div className="pd-share">
                         <div className="p-code">Sku : 00012</div>
                         <div className="pd-social">
-                          <a href="#"><i className="ti-facebook" /></a>
-                          <a href="#"><i className="ti-twitter-alt" /></a>
-                          <a href="#"><i className="ti-linkedin" /></a>
+                          <Link to="/"><i className="ti-facebook" /></Link>
+                          <Link to="/"><i className="ti-twitter-alt" /></Link>
+                          <Link to="/"><i className="ti-linkedin" /></Link>
                         </div>
                       </div>
                     </div>
@@ -300,13 +300,13 @@ const ProductDetail = () => {
                   <div className="tab-item">
                     <ul className="nav" role="tablist">
                       <li>
-                        <a className="active" data-toggle="tab" href="#tab-1" role="tab">DESCRIPTION</a>
+                        <Link className="active" data-toggle="tab" to="/tab-1" role="tab">DESCRIPTION</Link>
                       </li>
                       <li>
-                        <a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a>
+                        <Link data-toggle="tab" to="/tab-2" role="tab">SPECIFICATIONS</Link>
                       </li>
                       <li>
-                        <a data-toggle="tab" href="#tab-3" role="tab">Customer Reviews (02)</a>
+                        <Link data-toggle="tab" to="/tab-3" role="tab">Customer Reviews (02)</Link>
                       </li>
                     </ul>
                   </div>
@@ -485,9 +485,9 @@ const ProductDetail = () => {
                         <i className="icon_heart_alt" />
                       </div>
                       <ul>
-                        <li className="w-icon active"><a href="#"><i className="icon_bag_alt" /></a></li>
-                        <li className="quick-view"><a href="#">+ Quick View</a></li>
-                        <li className="w-icon"><a href="#"><i className="fa fa-random" /></a></li>
+                        <li className="w-icon active"><Link to="/"><i className="icon_bag_alt" /></Link></li>
+                        <li className="quick-view"><Link to="/">+ Quick View</Link></li>
+                        <li className="w-icon"><Link to="/"><i className="fa fa-random" /></Link></li>
                       </ul>
                     </div>
                     <div className="pi-text">

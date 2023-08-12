@@ -1,6 +1,11 @@
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 const Header = () => {
+
+  const udata = localStorage.getItem('data');
+    const loginData = JSON.parse(udata);
+    console.log(loginData);
+    
   return (
     <>
    <header className="header-section">
@@ -17,6 +22,7 @@ const Header = () => {
         </div>
       </div>
       <div className="ht-right">
+        
         <Link to="/login" className="login-panel"><i className="fa fa-user" />Login</Link>
         <div className="lan-selector">
           <select className="language_drop" name="countries" id="countries" style={{width: 70}}>
@@ -139,15 +145,7 @@ const Header = () => {
           </li>
           <li><Link to="/blog">Blog</Link></li>
           <li><Link to="/contact">Contact</Link></li>
-          <li><a to="#">Pages</a>
-            <ul className="dropdown">
-              <li> <Link to="/cart">Cart</Link></li>
-              <li> <Link to="/checkout">Checkout</Link></li>
-              <li> <Link to="/faq">Faq</Link></li>
-              <li> <Link to="/register">Register</Link></li>
-              <li> <Link to="/login">Login</Link></li>
-            </ul>
-          </li>
+          <li><Link to="/faq">Faq</Link></li>
         </ul>
       </nav>
       <div id="mobile-menu-wrap" />

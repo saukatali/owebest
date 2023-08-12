@@ -14,6 +14,8 @@ import BlogDetail from './pages/BlogDetail';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Contact from './pages/Contact';
+import Faq from './pages/Faq';
+
 import User from './dashboard/User';
 import UserShow from './dashboard/UserShow';
 import UserAdd from './dashboard/UserAdd';
@@ -35,6 +37,8 @@ const App = () => {
           <Route path="/cart" element={<Cart/>} />
           <Route path="/checkout" element={<Checkout/>} />
           <Route path="/contact" element={<Contact/>} />
+          <Route path="/faq" element={<Faq/>} />
+          
           <Route path="/user" element={<User/>} />
           <Route path="/user-add" element={<UserAdd/>} />
           <Route path="/user-show/:userId" element={<UserShow/>} />

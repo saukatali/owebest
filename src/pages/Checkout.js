@@ -10,7 +10,7 @@ const Checkout = () => {
         <div className="col-lg-12">
           <div className="breadcrumb-text product-more">
           <Link to="/"><i className="fa fa-home" /> Home</Link>
-            <a href="./shop.html">Shop</a>
+            <Link to="/">Shop</Link>
             <span>Check Out</span>
           </div>
         </div>
@@ -23,7 +23,7 @@ const Checkout = () => {
         <div className="row">
           <div className="col-lg-6">
             <div className="checkout-content">
-              <a href="#" className="content-btn">Click Here To Login</a>
+              <Link to="#" className="content-btn">Click Here To Login</Link>
             </div>
             <h4>Biiling Details</h4>
             <div className="row">

@@ -84,18 +84,18 @@ useEffect(() => {
             <div className="blog-share">
               <span>Share:</span>
               <div className="social-links">
-                <a href="#"><i className="fa fa-facebook" /></a>
-                <a href="#"><i className="fa fa-twitter" /></a>
-                <a href="#"><i className="fa fa-google-plus" /></a>
-                <a href="#"><i className="fa fa-instagram" /></a>
-                <a href="#"><i className="fa fa-youtube-play" /></a>
+                <Link to="/"><i className="fa fa-facebook" /></Link>
+                <Link to="/"><i className="fa fa-twitter" /></Link>
+                <Link to="/"><i className="fa fa-google-plus" /></Link>
+                <Link to="/"><i className="fa fa-instagram" /></Link>
+                <Link to="/"><i className="fa fa-youtube-play" /></Link>
               </div>
             </div>
           </div>
           <div className="blog-post">
             <div className="row">
               <div className="col-lg-5 col-md-6">
-                <a href="#" className="prev-blog">
+                <Link to="/" className="prev-blog">
                   <div className="pb-pic">
                     <i className="ti-arrow-left" />
                     <img src="../img/blog/prev-blog.png" />
@@ -104,10 +104,10 @@ useEffect(() => {
                     <span>Previous Post:</span>
                     <h5>The Personality Trait That Makes People Happier</h5>
                   </div>
-                </a>
+                </Link>
               </div>
               <div className="col-lg-5 offset-lg-2 col-md-6">
-                <a href="#" className="next-blog">
+                <Link to="/" className="next-blog">
                   <div className="nb-pic">
                     <img src="../img/blog/next-blog.png" />
                     <i className="ti-arrow-right" />
@@ -116,7 +116,7 @@ useEffect(() => {
                     <span>Next Post:</span>
                     <h5>The Personality Trait That Makes People Happier</h5>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -125,9 +125,9 @@ useEffect(() => {
               <img src="../img/blog/post-by.png" />
             </div>
             <div className="pb-text">
-              <a href="#">
+              <Link to="/">
                 <h5>Shane Lynch</h5>
-              </a>
+              </Link>
               <p>Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
                 velit esse cillum bore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                 amodo</p>

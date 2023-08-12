@@ -53,7 +53,7 @@ const Cart = () => {
         <div className="col-lg-12">
           <div className="breadcrumb-text product-more">
           <Link to="/"><i className="fa fa-home" /> Home</Link>
-            <a to="/product">Shop</a>
+            <Link to="/product">Shop</Link>
             <span>Shopping Cart</span>
           </div>
         </div>
