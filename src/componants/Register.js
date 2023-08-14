@@ -1,22 +1,36 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
-import { authReducer, registerUser } from '../reducers/authReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../reducers/rootReducerSlice';
+import { useDispatch } from 'react-redux';
 
 const Register = () => {
   const { register, handleSubmit, watch, formState: { errors, touched }, } = useForm();
-  const [auth, setAuth] = useState(false);
-
   const dispatch = useDispatch();
 
   const onSubmitRegister = (register_data) => {
-    console.log(register_data);
-    if (auth == 'signup') {
 
-    } else {
-      dispatch(registerUser({ email: register_data.email, password: register_data.password }));
-    }
+    // const fileMetadata = {
+    //   name: register_data.image[0].name,
+    //   size: register_data.image[0].size,
+    //   type: register_data.image[0].type,
+    // };
+
+      const serializableData = {
+        first_name: register_data.first_name,
+        last_name: register_data.last_name,
+        email: register_data.email,
+        phone: register_data.phone,
+        password: register_data.password,
+        textarea: register_data.textarea,
+        // image: register_data.image[0],
+        // image: fileMetadata,
+        id : Date.now().toString(),
+      };
+      console.log(serializableData);
+      
+      dispatch(registerUser(serializableData));
+      
   }
 
   const password = watch("password");
@@ -98,6 +112,18 @@ const Register = () => {
                       {errors.image && errors.image.type == 'required' &&
                         <span className="text-danger">The image field is required</span>
                       }
+                    </div>
+                  </div>
+
+
+                  <div className="col-lg-12">
+                    <div className="group-input">
+                      <label htmlFor="address"> Address  *</label>
+                      {/* <textarea  {...register("address", { required: false })} row="4"  className="form-control" ></textarea> */}
+                      <textarea id="textarea" {...register('address', { required: true })}className="form-control"
+                                rows="4" cols="50"  ></textarea>
+                      {/* {errors.address?.type === 'required' && <span className="text-danger">The address field is required</span>} */}
+                      {errors.address && ( <p className="text-danger">This field is required</p> )}
                     </div>
                   </div>
 

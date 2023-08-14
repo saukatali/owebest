@@ -2,27 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UseSelector, useSelector } from 'react-redux';
+
 const User = () => {
-  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchAllUser = async () => {
-      try {
-        const response = await fetch('https://dummyjson.com/users');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log(data.users)
-        setUsers(data.users);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-
-    fetchAllUser();
-  }, []);
+  const users = useSelector((state) => state.user) 
+  console.log(users)
 
 
   const handleEditUser = (userId) => {
@@ -34,7 +19,7 @@ const User = () => {
 
   const handleRemoveUser = (id) => {
     const updatedUser = users.filter((user) => user.id !== id);
-    setUsers(updatedUser);
+    // setUsers(updatedUser);
   };
 
 
@@ -48,7 +33,6 @@ const User = () => {
                 <div className="breadcrumb-text">
                 <Link to="/"><i className="fa fa-home" /> Home</Link>
                   <span>User Management</span>
-                  <Link to="/user-add" className="btn btn-sm btn-primary text-light mx-5"> Add New User</Link>
                 </div>
               </div>
             </div>
@@ -64,7 +48,6 @@ const User = () => {
                       <th> Name</th>
                       <th>Email</th>
                       <th>Phone</th>
-                      <th>Age</th>
                       <th>Gender</th>
                       <th>Address</th>
                       <th>Action</th>
@@ -73,7 +56,7 @@ const User = () => {
                   <tbody>
                     {users.map((user, index) => (
                       <tr key={index}>
-                        <td>{user.firstName}  {user.lastName}</td>
+                        <td>{user.first_name}  {user.last_name}</td>
                         <td>{user.email}</td>
                         <td>{user.phone}</td>
                         <td>{user.age}</td>
