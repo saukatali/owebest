@@ -2,13 +2,29 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Loader from '../componants/Loader'
 import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItemToCart } from '../reducers/cartReducerSlide'
+import { fetchData } from '../reducers/productSlice'
+import Swal from 'sweetalert2';
+
 const Product = () => {
   const [products, setProducts] = useState([]);
-  const [searchproducts, setSearchProducts] = useState([]);
-  const [category, setCategory] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [searchproducts, setSearchproducts] = useState('');
+  const [categoryItem, setCategoryItem] = useState('');
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
 
+  const successAlert = () => {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'This customer has been added successfully',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -20,7 +36,7 @@ const Product = () => {
         const data = await response.json();
         console.log(data.products)
         setProducts(data.products);
-        setSearchProducts(data.products);
+        setSearchproducts(data.products);
         setIsLoading(false)
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -30,51 +46,37 @@ const Product = () => {
     fetchProducts();
   }, []);
 
-  // const filterBrandProducts = (query) => {
-  //   const brands = products.filter((newVal) => {
-  //     return newVal.brand === query; 
-  //   });
-  //   console.log(brands)
-  //   setSearchProducts(brands);
-  // };
 
-  const filterCategoryProducts = (query) => {
-    const categories = products.filter((product) =>
-      product.category.toLowerCase().includes(query.toLowerCase())
+  const filterCategoryProducts = (event) => {
+    setCategoryItem(event);
+    const filteredProductsByCategory = products.filter(product =>
+      product.category.toLowerCase().includes(categoryItem.toLowerCase())
     );
-    console.log(categories)
-    setSearchProducts(categories);
-  };
-
-  const filterBrandProducts = (query) => {
-    const brands = products.filter((product) =>
-      product.brand.toLowerCase().includes(query.toLowerCase())
-    );
-    console.log(query)
-    setSearchProducts(brands);
+    setSearchproducts(filteredProductsByCategory);
   };
 
 
-  // useEffect(() => {
-  //   const fetchCategory = async () => {
-  //     try {
-  //       const response = await fetch('https://dummyjson.com/products/categories');
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       const data = await response.json();
-  //       // console.log(data)
-  //       setCategory(data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
 
-  //   fetchCategory();
-  // }, []);
+  const handleBrandCheckboxChange = (e) => {
+    const { value, checked } = e.target;
+    console.log(`${value} is ${checked}`)
+    if (checked) {
+      setSelectedBrands([...selectedBrands, value]);
+    } else {
+      setSelectedBrands(selectedBrands.filter((e) => e !== value) );
+    }
+    console.log(selectedBrands);
+    const filteredProducts = products.filter(
+        (product) =>
+          selectedBrands.length === 0 || selectedBrands.includes(product.brand)
+      );
+      console.log(filteredProducts);
+      setSearchproducts(filteredProducts);
+    };
+
 
   const uniqueCategories = [...new Set(products.map(product => product.category))];
-  const uniqueBrands     = [...new Set(products.map(product => product.brand))];
+  const uniqueBrands = [...new Set(products.map(product => product.brand))];
 
   if (isLoading) {
     return <Loader />;
@@ -112,15 +114,15 @@ const Product = () => {
                   <h4 className="fw-title">Brand</h4>
                   <div className="fw-brand-check">
 
-                   
+
                     {uniqueBrands.map((brand, index) => (
                       <div className="bc-item" key={index}>
                         <label htmlFor={`bc-${brand}-${index}`}>
                           {brand}
-                          <input type="checkbox"
-                            onClick={() => filterBrandProducts(brand)}
-                            id={`bc-${brand}-${index}`}
-                          />
+                          <input type="checkbox" value={brand} checked={selectedBrands.includes(brand)}
+                            onChange={handleBrandCheckboxChange} id={`bc-${brand}-${index}`} />
+                          {/* <input className="form-check-input" type="checkbox" value={brand} id={`bc-${brand}-${index}`} 
+                           onChange={(e) => handleBrandCheckboxChange(brand)}/> */}
                           <span className="checkmark" />
                         </label>
                       </div>
@@ -237,8 +239,8 @@ const Product = () => {
                               <i className="icon_heart_alt" />
                             </div>
                             <ul>
-                              <li className="w-icon active"><Link to="/"><i className="icon_bag_alt" /></Link></li>
-                              <li className="quick-view"><Link to="/">+ Quick View</Link></li>
+                              <li className="w-icon active"><Link to="#" onClick={() => dispatch(addItemToCart(product))}><i className="icon_bag_alt" /></Link></li>
+                              <li className="quick-view"><Link to={`/product-detail/${product.id}`}>+ Quick View</Link></li>
                               <li className="w-icon"><Link to="/"><i className="fa fa-random" /></Link></li>
                             </ul>
                           </div>

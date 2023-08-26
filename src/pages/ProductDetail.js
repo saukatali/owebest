@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import ProductRating from './ProductRating';
 import Loader from '../componants/Loader';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../reducers/cartReducerSlide';
 
 const ProductDetail = () => {
   
@@ -12,6 +14,7 @@ const ProductDetail = () => {
   const [product_lists, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
   const [cartItems, setCartItems] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -52,9 +55,9 @@ const ProductDetail = () => {
 
 
   // Function to add an item to the cart
-  const addToCart = (item) => {
-    setCartItems((prevItems) => [...prevItems, item]);
-  };
+  // const addToCart = (item) => {
+  //   setCartItems((prevItems) => [...prevItems, item]);
+  // };
 
   // Function to save the cart items to localStorage
   const saveCartToLocalStorage = (items) => {
@@ -70,10 +73,10 @@ const ProductDetail = () => {
   }, []);
 
   // Function to handle adding an item to the cart and saving to localStorage
-  const handleAddToCart = (item) => {
-    addToCart(item);
-    saveCartToLocalStorage([...cartItems, item]);
-  };
+  // const handleAddToCart = (item) => {
+  //   addToCart(item);
+  //   saveCartToLocalStorage([...cartItems, item]);
+  // };
 
 
   if (isLoading) {
@@ -278,7 +281,8 @@ const ProductDetail = () => {
                         <div className="pro-qty">
                           <input type="text" defaultValue={1} />
                         </div>
-                        <button name="Add to cart" className="primary-btn pd-cart" onClick={() => handleAddToCart(product)}> Add To Cart  </button>
+                        <button name="Add to cart" className="primary-btn pd-cart" 
+                        onClick={() => dispatch(addItemToCart(product))}> Add To Cart  </button>
 
                       </div>
                       <ul className="pd-tags">

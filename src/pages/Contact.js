@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {useForm} from 'react-hook-form'
+import { useState } from 'react'
+
 const Contact = () => {
   const { register, handleSubmit, watch, formState: { errors, touched }, } = useForm();
 
@@ -9,6 +11,7 @@ const Contact = () => {
     console.log(JSON.stringify(data));
   };
    
+  const message = watch('message', '');
 
   return (
     <>
@@ -96,7 +99,7 @@ const Contact = () => {
                         <div className="col-lg-12">
                           <textarea {...register("message", {required:true})} placeholder="Your message" />
                           {errors.message?.type === 'required' && <span className="text-danger">The message field is required</span>}
-                           <br></br> <br></br>
+                           <p>Word: {message.trim().split(/\s+/).length}    character: {message.length}</p>
                           <button type="submit" className="site-btn text-dark">Send message</button>
                         </div>
                       </div>

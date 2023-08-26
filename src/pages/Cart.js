@@ -1,48 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { removeItemFromCart } from '../reducers/cartReducerSlide';
 const Cart = () => {
-  // const [carts, setCarts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-  // useEffect(() =>{
-  //   const fetchCart = async () => {
-  //     try{
-  //       const response = await fetch('https://dummyjson.com/carts');
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       const data = await response.json();
-  //       console.log(data.carts)
-  //       setCarts(data.carts);
-  //     }catch(error){
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   }
-  //   fetchCart();
-  // }, [])
 
-  React.useEffect(() => {
-    const storedCartItems = localStorage.getItem('cartItems');
-    if (storedCartItems) {
-      console.log(JSON.parse(storedCartItems));
-      setCartItems(JSON.parse(storedCartItems));
-    }
-  }, []);
-
-
-  const handleRemoveToCart = (id) => {
-    const updatedItems = cartItems.filter((item) => item.id !== id);
-    // sessionStorage.removeItem(cartItems.filter((item) => item.id !== id));
-    setCartItems(updatedItems);
-  };
+  const dispatch = useDispatch();
+  // const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = JSON.parse(localStorage.getItem('reduxState'))?.cartList?.items || [];
 
 
   if (cartItems.length === 0) {
     return (
           <>
-           <h2 className="text-center p-5">Cart is Empty</h2>
+           <h6 className="text-center p-5">Cart is Empty</h6>
           </>
       )
   }
+
 
   return (
     <>
@@ -73,7 +47,7 @@ const Cart = () => {
                   <th className="p-price">Price</th>
                   <th className="p-qty">Quantity</th>
                   <th className="p-total">Total</th>
-                  <th><i className="ti-close" />Remove</th>
+                  <th><i className="ti-close"/>Remove</th>
                 </tr>
               </thead>
               <tbody>
@@ -93,7 +67,7 @@ const Cart = () => {
                   </td>
                   <td className="total-price first-row">{cart.price}</td>
                   <td className="close-td first-row"><i className="ti-close" />
-                    <span className="text-danger" onClick={() => handleRemoveToCart(cart.id)}>Remove</span>
+                    <span className="text-danger" onClick={() => dispatch(removeItemFromCart(cart.id))}>Remove</span>
                   </td>
                 </tr>
                 ))}

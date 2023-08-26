@@ -2,26 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector , useDispatch } from 'react-redux';
+import { fetchUserById } from '../reducers/rootReducerSlice';
+
 const UserShow = () => {
   const { userId } = useParams();
-  const [user, setUsers] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchAllUser = async () => {
-      try {
-        const response = await fetch(`https://dummyjson.com/users/${userId}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log(data)
-        setUsers(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
+    dispatch(fetchUserById(userId));
+  }, [dispatch, userId]);
 
-    fetchAllUser();
-  }, []);
+  // const user = useSelector((state) => state.user)
+  const user = JSON.parse(localStorage.getItem('reduxState'))?.userList?.user || [];
 
 
   return (

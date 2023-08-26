@@ -2,11 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UseSelector, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeUser } from '../reducers/rootReducerSlice';
+
 
 const User = () => {
   const navigate = useNavigate();
-  const users = useSelector((state) => state.user) 
+  const dispatch = useDispatch();
+  // const users = useSelector((state) => state.user) 
+  const users = JSON.parse(localStorage.getItem('reduxState'))?.userList?.user || [];
   console.log(users)
 
 
@@ -16,13 +20,6 @@ const User = () => {
   };
 
   
-
-  const handleRemoveUser = (id) => {
-    const updatedUser = users.filter((user) => user.id !== id);
-    // setUsers(updatedUser);
-  };
-
-
   return (
     <>
       <div>
@@ -45,7 +42,7 @@ const User = () => {
                 <table className="table table-striped table-inverse table-responsive">
                   <thead className="thead-inverse">
                     <tr>
-                      <th> Name</th>
+                      <th>Name</th>
                       <th>Email</th>
                       <th>Phone</th>
                       <th>Gender</th>
@@ -59,9 +56,8 @@ const User = () => {
                         <td>{user.first_name}  {user.last_name}</td>
                         <td>{user.email}</td>
                         <td>{user.phone}</td>
-                        <td>{user.age}</td>
-                        <td>{user.gender}</td>
-                        <td>{user.ip}</td>
+                        <td>{user.gender ?? 'Male'}</td>
+                        <td>{user.address}</td>
                         <td>
                           <Link to={`/user-show/${user.id}`} className="text-primary">
                             <i className="fa fa-eye" aria-hidden="true"></i></Link>
@@ -71,8 +67,8 @@ const User = () => {
 
                             <span onClick={() => navigate(`/user-edit/${user.id}`)} className=" btn-warning mx-2">
                               <i className="fa fa-pencil" aria-hidden="true"></i></span>
-
-                          <Link className="text-danger" onClick={() => handleRemoveUser(user.id)}>
+                             
+                            <Link className="text-danger" onClick={() => dispatch(removeUser(user.id))}>
                             <i className="fa fa-trash" aria-hidden="true"></i></Link>
                         </td>
                       </tr>

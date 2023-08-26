@@ -1,11 +1,55 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom'
+import Swal from 'sweetalert2';
 const Header = () => {
 
-  const udata = localStorage.getItem('data');
-    const loginData = JSON.parse(udata);
-    console.log(loginData);
+    const dispatch = useDispatch();
+    const cartItems = JSON.parse(localStorage.getItem('reduxState'))?.cartList?.items || [];
+    const user = JSON.parse(localStorage.getItem('reduxState'))?.userList?.user || [];
+       
     
+  const successAlert = () => {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'This customer has been added successfully',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+
+  const errorAlert = () => {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'This customer has been added successfully',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+
+  const confirmDeleteAlert = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  };
+
+
   return (
     <>
    <header className="header-section">
@@ -45,7 +89,7 @@ const Header = () => {
         <div className="col-lg-2 col-md-2">
           <div className="logo">
             <Link to="/">
-              <img src="../img/logo.png" />
+              <img src="../img/logo.png" alt='' />
             </Link>
           </div>
         </div>
@@ -69,14 +113,14 @@ const Header = () => {
             <li className="cart-icon">
               <Link to="/cart">
                 <i className="icon_bag_alt" />
-                <span>5</span>
+                <span>{cartItems.length}</span>
               </Link>
               <div className="cart-hover">
                 <div className="select-items">
                   <table>
                     <tbody>
                       <tr>
-                        <td className="si-pic"><img src="../img/select-product-1.jpg" /></td>
+                        <td className="si-pic"><img src="../img/select-product-1.jpg" alt='' /></td>
                         <td className="si-text">
                           <div className="product-selected">
                             <p>$60.00 x 1</p>
@@ -88,7 +132,7 @@ const Header = () => {
                         </td>
                       </tr>
                       <tr>
-                        <td className="si-pic"><img src="../img/select-product-2.jpg" /></td>
+                        <td className="si-pic"><img src="../img/select-product-2.jpg" alt='' /></td>
                         <td className="si-text">
                           <div className="product-selected">
                             <p>$60.00 x 1</p>
